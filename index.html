@@ -1,4 +1,3 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -990,7 +989,7 @@ function prow(it){const o=it.o,adm=st.role==="admin",p=PST[o.pst]||PST.due,k=esc
  if(adm&&o.pst==="review")a=`${o.rcUrl?`<a class="btn s" href="${o.rcUrl}" target="_blank" rel="noopener">View receipt</a>`:""}<button class="btn p s" data-pm="${k}">Mark paid</button><button class="btn s" data-pr="${k}">Reject receipt</button>`;
  if(adm&&(o.pst==="due"||o.pst==="rejected"))a=`<button class="btn s" data-pm="${k}">Mark paid</button>`;
  if(adm&&it.svc==="Requested")a+=`<button class="btn p s" data-oa="${esc(it.sid+"|"+it.l)}">Accept service</button>`;
- return `<div class="row" style="flex-wrap:wrap"><div><b>${esc(it.l)}</b><div class="mu" style="font-size:.82rem">${it.sub}${it.svc?` · ${it.svc}`:""}${o.rc?` · ${esc(o.rc)}`:""}</div></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${vbtn(me().fid,o.ref,o.rc)}${pill(p[0],p[1])}${a}</div></div>`}
+ return `<div class="row" style="flex-wrap:wrap"><div><b>${esc(it.l)}</b><div class="mu" style="font-size:.82rem">${it.sub}${it.svc?` · ${it.svc}`:""}${o.rc?` · ${esc(o.rc)}`:""}</div></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">${vbtn(cur().fid,o.ref,o.rc)}${pill(p[0],p[1])}${a}</div></div>`}
 function extra(s){return s.ord.length?`<h3 style="margin:18px 0 2px">Extra services</h3>`+pitems(s).filter(i=>i.k[0]==="o").map(prow).join(""):""}
 const mkDocs=a=>KEYS.map((k,i)=>({k,n:"",h:"",s:a[i]||"missing",f:a[i]&&a[i]!=="missing"?k+".pdf":""}));
 const S=[
@@ -1449,5 +1448,3 @@ wireAuth(); if(isDash()||/^#\/login/.test(location.hash))route();
 
 </body>
 </html>
-
-</body></html>
