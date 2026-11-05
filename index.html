@@ -1042,7 +1042,7 @@ const $=s=>(R?R.querySelector(s):null),esc=s=>String(s).replace(/[&<>"']/g,c=>({
 const me=()=>S[0],cur=()=>st.role==="admin"?S[st.sel]:S[0];
 const DP={missing:["Missing","bd"],uploaded:["In review","wr"],approved:["Approved","ok"],rejected:["Re-upload needed","bd"]};
 const pill=(x,k)=>`<span class="pill ${k||""}">${esc(x)}</span>`;
-function toast(m){const t=$("#t");t.innerHTML=`<div class="toast">${esc(m)}</div>`;clearTimeout(toast.x);toast.x=setTimeout(()=>t.innerHTML="",2600)}
+function toast(m,ms){const t=$("#t");t.innerHTML=`<div class="toast">${esc(m)}</div>`;clearTimeout(toast.x);toast.x=setTimeout(()=>t.innerHTML="",ms||2600)}
 const seenMap=()=>{if(!AUTH||!UID)return{};const m=LS.get("ce_seen_"+UID)||{};if(!m.applications){const o=LS.get("ce_apps_"+UID);if(o)m.applications=o}return m};
 function tabIds(role,k){if(role==="student")return k==="messages"?me().msgs.filter(m=>m.f==="team"&&!m.r).map(m=>"m"+m.id):[];
  if(k==="students")return S.filter(x=>x.delReq).map(x=>"d"+(x.fid||x.id));
@@ -1552,7 +1552,7 @@ function persist(){if(!AUTH||!UID||!window.firebase&&!window.__FSMOCK)return;con
   PQ=PQ.then(async()=>{const db=await getDB(),FV=FVal(),u={...upd};Object.keys(items).forEach(k=>u[k]=FV.arrayUnion(...items[k]));
    if(Object.keys(u).length)await db.doc("students/"+fid).update(u);
    for(const m of pm)await db.collection("students/"+fid+"/msgs").add({f:m.f,t:m.t,at:m.at})
-  }).catch(e=>{console.error(e);toast("Could not save your last change. Check your connection and try again.")})
+  }).catch(e=>{console.error(e);toast("Could not save your last change ("+((e&&(e.code||e.message))||"error")+"). Refresh the page and try again.",12000)})
  })}
 function softRender(){if(!R||!R.isConnected)return;const a=document.activeElement;if(a&&R.contains(a)&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)&&a.type!=="search"){PENDR=true;return}render()}
 document.addEventListener("focusout",()=>{if(PENDR)setTimeout(()=>{const a=document.activeElement;if(PENDR&&!(a&&R&&R.contains(a)&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))){PENDR=false;R&&R.isConnected&&render()}},120)});
